@@ -14,7 +14,7 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   rootReducer, 
   // 브라우저에서 상태를 재사용하기 위해 스토어 생성 과정에서
-  window.__PRELOADED__STATE__, // 이 값을 초기 상태로 사용함
+  window.__PRELOADED_STATE__, // 이 값을 초기 상태로 사용함
   applyMiddleware(thunk, sagaMiddleware)
 );
 

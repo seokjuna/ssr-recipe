@@ -45,6 +45,7 @@ const getUserFailure = error => ({
 const getUserById = id =>
     axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
 
+
 function* getUserSaga(action) {
     try {
         const response = yield call(getUserById, action.payload);
@@ -66,7 +67,7 @@ const initialState = {
         users: false,
         user: false
     },
-    error : {
+    error: {
         users: null,
         user: null
     }
