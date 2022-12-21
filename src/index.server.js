@@ -5,13 +5,18 @@ import { StaticRouter } from "react-router-dom/server";
 import App from "./App";
 import path from "path";
 import fs from "fs";
+import { applyMiddleware, createStore } from "redux";
+import rootReducer from "./modules";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import PreloadContext from "./lib/PreloadContext";
 
 // asset-manifest.json에서 파일 경로들을 조회함
 const manifest = JSON.parse(
     fs.readFileSync(path.resolve('./build/asset-manifest.json'), 'utf8')
 );
 
-function createPage(root) {
+function createPage(root, stateScript) {
     return `<!DOCTYPE html>
     <html lang="en">
         <head>
@@ -28,6 +33,7 @@ function createPage(root) {
         <body>
             <noscript>You need to enable JavaScript to run this app.</noscript>
             <div id="root">${root}</div>
+            ${stateScript}
             <script src="${manifest.files['main.js']}"></script>
         </body>
     </html>
@@ -37,17 +43,38 @@ function createPage(root) {
 const app = express();
 
 // 서버 사이드 렌더링을 처리할 핸들러 함수
-const serverRender = (req, res, next) => {
+const serverRender = async (req, res, next) => {
     // 이 함수는 404가 떠야 하는 상황에 404를 띄우지 않고 서버 사이드 렌더링을 해줌
     
     const context = {};
+    // 리덕스 설정
+    const store = createStore(rootReducer, applyMiddleware(thunk));
+    // PreloadContext를 사용하여 프로미스들을 수집하고 기다렸다가 다시 렌더링하는 작업
+    const preloadContext = {
+        done: false,
+        Promises: []
+    };
     const jsx = (
-        <StaticRouter location={req.url} context={context}>
-            <App />
-        </StaticRouter>
+        <PreloadContext.Provider value={preloadContext}>
+            <Provider store={store}>
+                <StaticRouter location={req.url} context={context}>
+                    <App />
+                </StaticRouter>
+            </Provider>
+        </PreloadContext.Provider>
     );
+
+    ReactDOMServer.renderToStaticMarkup(jsx); // renderToStaticMarkup으로 한번 렌더링 (정적 페이지)
+    try {
+        await Promise.all(preloadContext.Promises); // 모든 프로미스를 기다림
+    } catch (e) {
+        return res.status(500);
+    }
+    preloadContext.done = true;
     const root = ReactDOMServer.renderToString(jsx); // 렌더링을 하고
-    res.send(createPage(root)); // 클라이언트에게 결과물을 응답
+    const stateString = JSON.stringify(store.getState()).replace(/</g, '\\u003c');
+    const stateScript = `<script>__PRELOAD_STATE__=${stateString}</script>`; // 리덕스 초기 상태를 스크립트로 주입
+    res.send(createPage(root, stateScript)); // 클라이언트에게 결과물을 응답
 };
 
 const serve = express.static(path.resolve('./build'), {
