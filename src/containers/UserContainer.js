@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import User from "../components/User";
-import { Preloader } from "../lib/PreloadContext";
+import { Preloader, usePreloader } from "../lib/PreloadContext";
 import { getUser } from "../modules/users";
 
 const UserContainer = ({ id }) => {
     const user = useSelector(state => state.users.user);
     const dispatch = useDispatch();
+
+    usePreloader(() => dispatch(getUser(id))); // 서버 사이드 렌더링을 할 때 API 호출하기
 
     // 유효성 검사
     useEffect(() => {
@@ -17,9 +19,12 @@ const UserContainer = ({ id }) => {
 
     // 컨테이너 유효성 검사 후 return null을 해야 하는 경우에
     // null 대신 Preloader 반환
-    if (!user) {
-        return <Preloader resolve={() => dispatch(getUser(id))} />;
-    }
+    // if (!user) {
+    //     return <Preloader resolve={() => dispatch(getUser(id))} />;
+    // }
+
+    // usePreloader 사용
+    if(!user) return null;
     return <User user={user} />;
 };
 
