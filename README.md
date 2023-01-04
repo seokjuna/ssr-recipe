@@ -13,9 +13,9 @@ https://seokjuna.notion.site/20-3-5587ec52ae164ec88fb0009432c0068a<br>
 5. 정적 파일 제공하기
 
 React:<br>
-UI: Red, Blue, User, Users<br>
-yarn: react-router-dom, webpack-node-externals 라이브러리, express, redux, react-redux, redux-thunk, axios, redux-saga<br>
-function: useEffect, useDispatch, useSelector<br>
+- UI: Red, Blue, User, Users<br>
+- yarn: react-router-dom, webpack-node-externals 라이브러리, express, redux, react-redux, redux-thunk, axios, redux-saga<br>
+        @loadable/component, @loadable/server, @loadable/webpack-plugin, @loadable/babel-plugin<br>
+- function: useEffect, useDispatch, useSelector<br>
 <br>
 <img width="400" alt="ssr" src="https://user-images.githubusercontent.com/102382351/210506578-8e15f63c-1570-4d34-a598-b39b9228c04a.png">
-
