@@ -1,70 +1,21 @@
-# Getting Started with Create React App
+# 서버 사이드 렌더링
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+노션 링크:<br>
+https://seokjuna.notion.site/20-1-1117b4d9cab64545b9361cd8a088d1a2<br>
+https://seokjuna.notion.site/20-2-fc44a0a1a5f349a9bc093f9aea468fb6<br>
+https://seokjuna.notion.site/20-3-5587ec52ae164ec88fb0009432c0068a<br>
+<br>
+💡서버 사이드 렌더링 구현<br>
+1. 서버 사이드 렌더링용 엔트리 만들기
+2. 서버 사이드 렌더링 전용 웹팩 환경 설정 작성하기
+3. 빌드 스크립트 작성하기
+4. 서버 코드 작성하기
+5. 정적 파일 제공하기
 
-## Available Scripts
+React:<br>
+UI: Red, Blue, User, Users<br>
+yarn: react-router-dom, webpack-node-externals 라이브러리, express, redux, react-redux, redux-thunk, axios, redux-saga<br>
+function: useEffect, useDispatch, useSelector<br>
+<br>
+<img width="400" alt="ssr" src="https://user-images.githubusercontent.com/102382351/210506578-8e15f63c-1570-4d34-a598-b39b9228c04a.png">
 
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
